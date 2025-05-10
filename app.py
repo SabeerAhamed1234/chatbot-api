@@ -10,7 +10,7 @@ def chat():
     
     # Example response logic
     if user_message.lower() == 'hello':
-        bot_reply = "Hi there! How can I help you?"
+        bot_reply = "welcome.....Hi there,how i can help u ?"
     else:
         bot_reply = f"You said: {user_message}"
 
