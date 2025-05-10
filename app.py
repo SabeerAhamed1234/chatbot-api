@@ -1,23 +1,22 @@
 from flask import Flask, request, jsonify
-from chatbot import get_bot_response
-from config import API_KEY
 
 app = Flask(__name__)
 
+# Dummy chatbot logic – replace with your real logic if needed
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.get_json()
-    user_key = request.headers.get('x-api-key')
-    message = data.get("message", "")
+    user_message = data.get('message', '')
+    
+    # Example response logic
+    if user_message.lower() == 'hello':
+        bot_reply = "Hi there! How can I help you?"
+    else:
+        bot_reply = f"You said: {user_message}"
 
-    if user_key != API_KEY:
-        return jsonify({"error": "Unauthorized"}), 401
+    return jsonify({'response': bot_reply})
 
-    if not message:
-        return jsonify({"error": "Empty message"}), 400
-
-    response = get_bot_response(message)
-    return jsonify({"response": response})
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# Health check route
+@app.route('/', methods=['GET'])
+def home():
+    return "Chatbot API is live!"
